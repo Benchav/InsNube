@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\FirebaseExample2.props" />
+</Project>
