@@ -42,6 +42,68 @@ namespace FirebaseExamenple2.Services
               throw new Exception("Eror al crear la categoria en firestore.", ex);
             }
         }
-    }
 
+ // Método para actualizar una categoría por ID
+        public async Task<CategorieEntities> UpdateCategorie(string id, CategorieEntities updatedCategorie){
+            try{
+                DocumentReference docRef = _firestoreDB.Collection(CollectionNam).Document(id);
+                var snapshot = await docRef.GetSnapshotAsync();
+
+                if (!snapshot.Exists){
+                    throw new Exception($"La categoría con ID {id} no existe.");
+                }
+
+                await docRef.SetAsync(updatedCategorie, SetOptions.Overwrite);
+                return updatedCategorie;
+            }
+            catch (Exception ex){
+                Console.WriteLine($"Error al actualizar la categoría en Firestore: {ex.Message}");
+                throw new Exception("Error al actualizar la categoría en Firestore.", ex);
+            }
+        }
+
+        // Método para eliminar una categoría por ID
+        public async Task DeleteCategorie(string id){
+            try{
+                DocumentReference docRef = _firestoreDB.Collection(CollectionName).Document(id);
+                var snapshot = await docRef.GetSnapshotAsync();
+
+                if (!snapshot.Exists){
+                    throw new Exception($"La categoría con ID {id} no existe.");
+                }
+
+                await docRef.DeleteAsync();
+            }
+            catch (Exception ex){
+                Console.WriteLine($"Error al eliminar la categoría en Firestore: {ex.Message}");
+                throw new Exception("Error al eliminar la categoría en Firestore.", ex);
+            }
+        }
+
+        // Método para ver todas las categorías
+        public async Task<List<CategorieEntities>> VerCategories(){
+            try{
+                CollectionReference categoriesRef = _firestoreDB.Collection(CollectionName);
+                QuerySnapshot snapshot = await categoriesRef.GetSnapshotAsync();
+
+                List<CategorieEntities> categoriesList = new List<CategorieEntities>();
+
+                foreach (DocumentSnapshot document in snapshot.Documents){
+                    if (document.Exists){
+                        CategorieEntities categorie = document.ConvertTo<CategorieEntities>();
+                        categorie.Id = document.Id;
+                        categoriesList.Add(categorie);
+                    }
+                }
+
+                return categoriesList;
+            }
+            catch (Exception ex){
+                Console.WriteLine($"Error al obtener las categorías en Firestore: {ex.Message}");
+                throw new Exception("Error al obtener las categorías en Firestore.", ex);
+            }
+        }
+
+
+    }
 }

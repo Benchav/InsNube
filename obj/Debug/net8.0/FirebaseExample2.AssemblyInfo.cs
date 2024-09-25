@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FirebaseExample2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+85b1f58f5a9147165ef69f4c0b83e7f6c220c611")]
 [assembly: System.Reflection.AssemblyProductAttribute("FirebaseExample2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FirebaseExample2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
